@@ -1,0 +1,40 @@
+/* Hiding the default checkbox input */
+.hidden-checkbox {
+  display: none;
+}
+
+/* Custom fake checkbox styles */
+.fake-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #080422;
+  position: relative;
+  display: inline-flex;
+  margin-right: 8px;
+}
+
+.fake-checkbox::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -45%) rotate(-48deg);
+  width: 10px;
+  height: 5px;
+  border: 2px solid #080422;
+  content: "";
+  border-top: 0;
+  border-right: 0;
+  margin-top: -2px;
+  display: none;
+}
+
+input:checked + .fake-checkbox::after {
+  display: block;
+}
+
+/* Optional label styling */
+/* .label-text {
+  font-size: 14px;
+  color: #080422;
+} */

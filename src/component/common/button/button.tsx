@@ -20,8 +20,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 // 
 const buttonStyles = {
   color: {
-    primary: "bg-primary-900 text-white",
-    secondary: "bg-secondary-900 text-white",
+    primary: "bg-purple-900 text-white",
+    secondary: "bg-yellow-500 text-white",
     outline: "border border-gray-400 text-gray-800",
     default: "bg-white text-black",
   },
@@ -57,7 +57,7 @@ export default function Button({
     <button
       {...props}
       className={cn(
-        "flex items-center justify-center gap-2 font-medium",
+        "cursor-pointer flex items-center justify-center gap-2 font-500 text-sm",
         buttonStyles.color[color],
         buttonStyles.size[size],
         buttonStyles.rounded[rounded],

@@ -1,0 +1,1 @@
+export type IWidth = "sm" | "lg" | "md"

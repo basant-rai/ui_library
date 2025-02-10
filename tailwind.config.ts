@@ -27,7 +27,7 @@ export default {
 		extend: {
 			colors: {
 				primary: {
-					DEFAULT: 'var(--primary)',
+					DEFAULT: '#00008B',
 					foreground: 'var(--primary-foreground)'
 				},
 				secondary: {
