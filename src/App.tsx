@@ -15,6 +15,7 @@ import Radio from "@/component/common/radio"
 import LoaderIcon from "./assets/icon/loader"
 import SingleSelect from "./component/common/select/single-select"
 import MultiSelect from "./component/common/select/multi-select"
+import TimePicker from "./component/common/time-picker/time-picker"
 
 
 
@@ -46,6 +47,11 @@ function App() {
         <InputTextArea
           placeholder="This is normal input"
         />
+        <div className="w-[200px]">
+          <TimePicker
+            onChange={() => { }}
+          />
+        </div>
         <form>
           <FormInput
             error="This is error" placeholder="This is form input"

@@ -104,7 +104,7 @@ function TimePicker({
 
 
   return (
-    <label className="block text-sm font-500">
+    <label className={cn("block text-sm font-500")}>
       <p className={cn(
         "pb-1 font-quicksand font-600",
         error ? "text-danger" : "text-secondary-900"
@@ -130,7 +130,7 @@ function TimePicker({
         <button
           type="button"
           onClick={toggleAmPm}
-          className="bg-primary-900 h-full shrink-0 border-0 px-2 font-bold text-white hover:cursor-pointer"
+          className="bg-black h-full shrink-0 border-0 px-3 font-bold text-white hover:cursor-pointer"
         >{isAm ? 'AM' : 'PM'}
         </button>
       </div>
