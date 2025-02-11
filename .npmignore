@@ -1,4 +1,41 @@
-src
-node_modules
+# Ignore local development files
+node_modules/
+dist/
+.build/
+.temp/
+.cache/
+.vscode/
+.idea/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Ignore TypeScript config and build files
 tsconfig.json
+tsconfig.tsbuildinfo
+
+# Ignore test-related files
+__tests__/
+__mocks__/
+coverage/
+jest.config.js
+*.test.js
+*.test.ts
+*.test.tsx
+*.spec.js
+*.spec.ts
+*.spec.tsx
+
+# Ignore build scripts and configs
+rollup.config.js
+webpack.config.js
+esbuild.config.js
+tsup.config.ts
+postcss.config.js
 tailwind.config.js
+
+# Ignore documentation and metadata
+README.md
+CHANGELOG.md
+LICENSE
+*.log

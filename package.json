@@ -1,16 +1,23 @@
 {
   "name": "simple_ui_elements",
   "version": "1.0.2",
-  "main": "index.js",
+  "description": "A simple UI components library for React with Tailwind CSS.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "ui",
+    "tailwind",
+    "components"
+  ],
+  "author": "Basant",
   "license": "ISC",
-  "description": "",
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -20,8 +27,6 @@
     "@types/react": "^19.0.8",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.6",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3"
