@@ -1,10 +1,10 @@
 // 
-import { cn } from '@/utils/cn';
+import { cn } from '../../utils/cn';
 
 // 
-import Required from '@/component/common/required';
-import InputError from '@/component/common/error/input-error';
-import InputTextArea from '@/component/common/input/text-area';
+import Required from '../../component/common/required';
+import InputError from '../../component/common/error/input-error';
+import InputTextArea from '../../component/common/input/text-area';
 
 
 // 

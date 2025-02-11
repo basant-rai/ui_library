@@ -1,12 +1,12 @@
 import React from 'react'
 
 // 
-import { cn } from '@/utils/cn';
+import { cn } from '../../utils/cn';
 
 // 
-import Required from '@/component/common/required';
-import Input from '@/component/common/input/input';
-import InputError from '@/component/common/error/input-error';
+import Required from '../../component/common/required';
+import Input from '../../component/common/input/input';
+import InputError from '../../component/common/error/input-error';
 
 
 // 

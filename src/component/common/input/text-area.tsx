@@ -1,4 +1,4 @@
-import { cn } from "@/utils/cn"
+import { cn } from '../../../utils/cn';
 
 interface Props extends Omit<React.InputHTMLAttributes<HTMLTextAreaElement>, 'style'> {
   rows?: number

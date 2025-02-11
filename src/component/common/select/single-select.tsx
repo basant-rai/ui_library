@@ -3,8 +3,8 @@ import { useEffect, useMemo, useState } from 'react';
 import Select, { components } from 'react-select';
 
 // 
-import { cn } from '@/utils/cn';
-import { IWidth } from '@/@types/common';
+import { cn } from '../../../utils/cn';
+import { IWidth } from '../../../@types/common';
 
 
 import { SelectStyle } from './style';

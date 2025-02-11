@@ -3,13 +3,13 @@ import Select, { components } from 'react-select';
 import { useMemo } from 'react';
 
 // 
-import { IWidth } from '@/@types/common';
+import { IWidth } from '../../../@types/common';
 
 // 
 import Checkbox from '../checkbox';
 
 // 
-import { cn } from '@/utils/cn';
+import { cn } from '../../../utils/cn';
 import { SelectStyle } from './style';
 
 interface IOption {

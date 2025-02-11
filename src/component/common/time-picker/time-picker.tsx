@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cn } from '@/utils/cn';
+import { cn } from '../../../utils/cn';
 import { useEffect, useState } from 'react';
 
 interface Props {

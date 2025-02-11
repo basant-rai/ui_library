@@ -1,5 +1,5 @@
-import { cn } from "@/utils/cn";
-import LoaderIcon from "@/assets/icon/loader"
+import { cn } from "../../../utils/cn";
+import LoaderIcon from "../../../assets/icon/loader"
 
 // 
 type ButtonColors = "primary" | "secondary" | "outline" | "default";

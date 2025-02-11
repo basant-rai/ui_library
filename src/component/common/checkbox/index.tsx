@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from 'react';
 
 // 
-import { cn } from '@/utils/cn';
+import { cn } from '../../../utils/cn';
 import "./checkbox.css";
 
 // 

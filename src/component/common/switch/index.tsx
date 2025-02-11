@@ -1,6 +1,6 @@
 
 // 
-import { cn } from "@/utils/cn";
+import { cn } from '../../../utils/cn';
 import "./switch.css";
 
 interface Props {
