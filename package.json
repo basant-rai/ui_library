@@ -1,11 +1,12 @@
 {
   "name": "simple_ui_elements",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple UI components library for React with Tailwind CSS.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
+    "dev":"npm run",
     "build": "tsup",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"

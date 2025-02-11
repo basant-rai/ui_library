@@ -13,6 +13,7 @@ package-lock.json
 # Ignore TypeScript config and build files
 tsconfig.json
 tsconfig.tsbuildinfo
+src
 
 # Ignore test-related files
 __tests__/
@@ -33,6 +34,7 @@ esbuild.config.js
 tsup.config.ts
 postcss.config.js
 tailwind.config.js
+postcss.config.mjs
 
 # Ignore documentation and metadata
 README.md

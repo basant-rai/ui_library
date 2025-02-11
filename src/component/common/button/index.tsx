@@ -15,6 +15,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   endIcon?: React.ReactNode;
   isLoading?: boolean;
   disabled?: boolean;
+  className?: string
 }
 
 // 
@@ -49,6 +50,7 @@ export default function Button({
   children,
   startIcon,
   endIcon,
+  className,
   isLoading = false,
   disabled = false,
   ...props
@@ -62,7 +64,8 @@ export default function Button({
         buttonStyles.size[size],
         buttonStyles.rounded[rounded],
         isLoading || disabled ? buttonStyles.loading : "",
-        disabled ? buttonStyles.disabled : ""
+        disabled ? buttonStyles.disabled : "",
+        className
       )}
       disabled={isLoading || disabled}
     >
