@@ -9,7 +9,9 @@ yarn add simple_ui_elements
 npm install simple_ui_elements
 pnpm install simple_ui_elements
 ```
+
 ## Getting Started
+
 ## COMPONENTS
 
 Button
@@ -52,6 +54,7 @@ INPUT ELEMENTS
 ```
 
 Select
+
 ```
  <SingleSelect
     onSelect={() => { }}
@@ -70,15 +73,17 @@ Select
 ```
 
 ## Features
+
 ✅ Pre-built Components – Buttons, Inputs, Selects, Modals, and more  
 ✅ Tailwind CSS Integration – Fully customizable with utility classes  
 ✅ Theme Support – Easily update colors, typography, and styles  
-✅ Lightweight & Performant – Optimized for fast rendering   
-✅ Easy integration with `react-hook-form` and `formik` – Simplifies form handling,   
-✅ Fully TypeScript supported    
-✅ Custom validation support   
+✅ Lightweight & Performant – Optimized for fast rendering  
+✅ Easy integration with `react-hook-form` and `formik` – Simplifies form handling,  
+✅ Fully TypeScript supported  
+✅ Custom validation support
 
 ## 🎨 Customization
+
 Supports Tailwind CSS configuration out of the box.
 To customize colors and styles, update your tailwind.config.js:
 
@@ -87,14 +92,37 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#6366f1", // Customize primary color
-        secondary: "#ec4899",
+        primary: 'var(--primary)',  // Example primary color
+        secondary: 'var(--secondary)',  // Example secondary color
+        destructive: "var(--destructive)",
+        input: "var(--input)",
+        background: "var(--background)"
       },
     },
   },
 };
+
+styles/global.css
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Colors */
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --destructive: #ff0000;
+
+    --border: #f5f5f5;
+    --background: #fff;
+
+    --input: #f5f5f5;
+  }
+}
+
 ```
+
 ## Usage with Forms
+
 Using with FORMIK
 
 ```
