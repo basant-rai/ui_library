@@ -249,8 +249,8 @@ export function ReactHookForm (){
 
 ```
 
-🔗 Links
-📦 NPM Package: [simple_ui_elements](https://www.npmjs.com/package/simple_ui_elements)
-📖 Documentation: [simple_ui_elements](https://github.com/basant-rai/ui_library)
+🔗 Links 
+📦 NPM Package: [simple_ui_elements](https://www.npmjs.com/package/simple_ui_elements) 
+📖 Documentation: [simple_ui_elements](https://github.com/basant-rai/ui_library) 
 
 🚀 Start building better UI today!
