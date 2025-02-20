@@ -8,7 +8,7 @@
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  border: 1px solid #080422;
+  border: 1px solid var(--border);
   position: relative;
   display: inline-flex;
   margin-right: 8px;
@@ -21,7 +21,7 @@
   transform: translate(-50%, -45%) rotate(-48deg);
   width: 10px;
   height: 5px;
-  border: 2px solid #080422;
+  border: 2px solid var(--border);
   content: "";
   border-top: 0;
   border-right: 0;

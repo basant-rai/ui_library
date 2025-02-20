@@ -4,8 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#007bff',  // Example primary color
-        secondary: '#6c757d',  // Example secondary color
+        primary: 'var(--primary)',  // Example primary color
+        secondary: 'var(--secondary)',  // Example secondary color
+        destructive: "var(--destructive)",
+        input: "var(--input)",
+        background: "var(--background)"
       },
     },
   },

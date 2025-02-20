@@ -21,9 +21,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 // 
 const buttonStyles = {
   color: {
-    primary: "bg-purple-900 text-white",
-    secondary: "bg-yellow-500 text-white",
-    outline: "border border-gray-400 text-gray-800",
+    primary: "bg-primary text-white",
+    secondary: "bg-secondary text-white",
+    outline: "border border-border text-black",
     default: "bg-white text-black",
   },
   size: {

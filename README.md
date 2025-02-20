@@ -70,13 +70,13 @@ Select
 ```
 
 ## Features
-✅ Pre-built Components – Buttons, Inputs, Selects, Modals, and more
-✅ Tailwind CSS Integration – Fully customizable with utility classes
-✅ Theme Support – Easily update colors, typography, and styles
-✅ Lightweight & Performant – Optimized for fast rendering
-✅ Easy integration with `react-hook-form` and `formik` – Simplifies form handling, 
-✅ Fully TypeScript supported  
-✅ Custom validation support  
+✅ Pre-built Components – Buttons, Inputs, Selects, Modals, and more  
+✅ Tailwind CSS Integration – Fully customizable with utility classes  
+✅ Theme Support – Easily update colors, typography, and styles 
+✅ Lightweight & Performant – Optimized for fast rendering 
+✅ Easy integration with `react-hook-form` and `formik` – Simplifies form handling,  
+✅ Fully TypeScript supported   
+✅ Custom validation support   
 
 ## 🎨 Customization
 Supports Tailwind CSS configuration out of the box.
