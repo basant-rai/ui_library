@@ -10,6 +10,62 @@ npm i simple_ui_elements
 pnpm i simple_ui_elements
 ```
 
+## COMPONENTS
+
+Button
+```
+ <Button
+    color={"primary"} //Change according to your preferences
+    size={"md"}
+    className="px-40" 
+  >
+    Primary Button
+  </Button>
+
+   <Button
+      color={"secondary"}
+      size={"md"}
+      // Add icon options
+      startIcon={<Icon className="text-white" />}
+      endIcon={<Icon className="text-white" />}
+      isLoading //Button loader
+    >
+      Secondary Button
+    </Button>
+```
+
+INPUT ELEMENTS
+```
+  <Input placeholder="This is normal input" />
+  <InputTextArea
+    placeholder="This is normal input"
+  />
+  <TimePicker
+    onChange={() => { }}
+    label={""}
+  />
+  <ToggleSwitch />
+  <Checkbox />
+  <Radio />
+```
+Select
+```
+ <SingleSelect
+    onSelect={() => { }}
+    options={[]}
+    width="md"
+    value={""}
+    placeholder="Single select"
+  />
+
+  <MultiSelect
+    onSelect={() => { }}
+    options={[]}
+    width="md"
+    placeholder="Multi select"
+  />
+```
+
 ## Features
 ✅ Easy integration with `react-hook-form` and `formik`
 ✅ Fully TypeScript supported  
@@ -26,10 +82,14 @@ export function FormikForm (){
  const formik = useFormik<LoginFormValues>({
     initialValues: {
       email: "",
+      description:"",
     },
+    validationSchema: validationSchema,
+    onSubmit: async (values, actions) => {
+    }
  })
  return(
-  <form>
+  <form onSubmit={formik.handleSubmit}>
     <FormInput
       id="email"
       type="email"
@@ -44,6 +104,15 @@ export function FormikForm (){
       label="Email"
       required
     />
+     <FormTextAreaInput
+        id="description"
+        placeholder="Enter description here..."
+        {...formik.getFieldProps("description")}
+        error={formik.errors?.description}
+        disabled={isSubmitting}
+        label="Description"
+        required
+      />
   </form>
  )
 }
@@ -63,10 +132,10 @@ export function ReactHookForm (){
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(validationSchema),
   });
  return(
-  <form>
+  <form onSubmit={handleSubmit(()=>{})}>
       <FormInput
         id="email"
         type="email"
@@ -75,6 +144,15 @@ export function ReactHookForm (){
         error={errors.email?.message}
         disabled={isSubmitting}
         label="Email"
+        required
+      />
+      <FormTextAreaInput
+        id="description"
+        placeholder="Enter description here..."
+        {...register("description")}
+        error={errors.description?.message}
+        disabled={isSubmitting}
+        label="Description"
         required
       />
   </form>
