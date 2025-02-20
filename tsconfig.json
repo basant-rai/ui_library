@@ -117,5 +117,5 @@
   },
   "include": [
     "src"
-  ]
+, "scripts", "scripts/setup-script.js"  ]
 }

@@ -25,7 +25,6 @@ interface Props {
   placeholder: string,
   width?: IWidth
   options: IOption[],
-  label?: string,
   value: string | number
   isSearchable?: boolean
   onCreateNew?: () => void;
@@ -40,7 +39,6 @@ const SingleSelect = ({
   onSelect,
   placeholder,
   width,
-  label,
   value,
   options: initialOptions,
   isSearchable = true,
@@ -85,11 +83,7 @@ const SingleSelect = ({
   };
 
   return (
-    <div>
-      {
-        label &&
-        <div className='text-secondary-900 mb-1 font-500 text-sm'>{label}</div>
-      }
+    <>
       <Select
         options={options}
         className={cn(
@@ -111,34 +105,28 @@ const SingleSelect = ({
         isDisabled={disabled}
         styles={{
           menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
-          control: (provided) => ({
+          control: (provided, state) => ({
             ...provided,
-            backgroundColor: '#F5F5F5',
-            borderColor: '#e5e7eb',
-            color: 'white',
-            padding: '2px 0px',
-            fontSize: "14px",
-            boxShadow: "none",
-            borderRadius: "6px",
-            '&:focus': {
-              outline: "none"
-            },
-            '&:hover': {
-              borderColor: "#D5D5D5",
-              outline: "none"
+            backgroundColor: "theme('colors.gray.100')",
+            borderColor: state.isFocused ? "theme('colors.gray.400')" : "theme('colors.gray.300')",
+            color: "theme('colors.gray.700')",
+            padding: "0.5rem",
+            fontSize: "0.875rem", // Tailwind text-sm
+            boxShadow: state.isFocused ? "0 0 0 2px theme('colors.gray.400')" : "none",
+            borderRadius: "0.375rem", // Tailwind rounded-md
+            "&:hover": {
+              borderColor: "theme('colors.gray.400')",
             },
           }),
           menu: (provided) => ({
             ...provided,
             zIndex: 9999,
-            backgroundColor: 'white',
-            border: "1px solid #F5F5F5",
-            borderRadius: "6px",
-            overflow: "hidden",
-            padding: "4px",
-            textTransform: "capitalize",
-            marginTop: "2px",
-            fontSize: "14px"
+            backgroundColor: "theme('colors.white')",
+            border: "1px solid theme('colors.gray.200')",
+            borderRadius: "0.375rem",
+            padding: "0.25rem",
+            marginTop: "0.25rem",
+            fontSize: "0.875rem",
           }),
           menuList: (provided) => ({
             ...provided,
@@ -146,23 +134,21 @@ const SingleSelect = ({
           }),
           option: (provided, state) => ({
             ...provided,
-            backgroundColor: state.isSelected ? '#F5F5F5' : 'transparent',
-            color: state.isSelected ? 'black' : 'black',
-            marginBottom: "4px",
-            borderRadius: "6px",
-            '&:hover': {
-              backgroundColor: "#F5F5F5",
-              color: 'black',
+            backgroundColor: state.isSelected ? "theme('colors.gray.200')" : "transparent",
+            color: "theme('colors.gray.800')",
+            padding: "0.5rem",
+            borderRadius: "0.375rem",
+            "&:hover": {
+              backgroundColor: "theme('colors.gray.100')",
             },
           }),
           singleValue: (provided) => ({
             ...provided,
-            color: '#757575',
-            textTransform: "capitalize"
+            color: "theme('colors.gray.700')",
           }),
           placeholder: (provided) => ({
             ...provided,
-            color: '#757575',
+            color: "theme('colors.gray.500')",
           }),
         }}
         classNames={{
@@ -172,7 +158,7 @@ const SingleSelect = ({
           dropdownIndicator: () => dropdownIndicatorStyles,
         }}
       />
-    </div>
+    </>
   );
 };
 

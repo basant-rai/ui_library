@@ -13,11 +13,12 @@ pnpm i simple_ui_elements
 ## COMPONENTS
 
 Button
+
 ```
- <Button
+  <Button
     color={"primary"} //Change according to your preferences
     size={"md"}
-    className="px-40" 
+    className="px-40"
   >
     Primary Button
   </Button>
@@ -35,6 +36,7 @@ Button
 ```
 
 INPUT ELEMENTS
+
 ```
   <Input placeholder="This is normal input" />
   <InputTextArea
@@ -48,6 +50,7 @@ INPUT ELEMENTS
   <Checkbox />
   <Radio />
 ```
+
 Select
 ```
  <SingleSelect
@@ -67,12 +70,14 @@ Select
 ```
 
 ## Features
+
 ✅ Easy integration with `react-hook-form` and `formik`
 ✅ Fully TypeScript supported  
 ✅ Custom validation support  
-✅ Lightweight and performant  
+✅ Lightweight and performant
 
 FORMIK
+
 ```
 import { useFormik } from "formik";
 import FormInput from "./form/form-input"
@@ -83,6 +88,7 @@ export function FormikForm (){
     initialValues: {
       email: "",
       description:"",
+      year:""
     },
     validationSchema: validationSchema,
     onSubmit: async (values, actions) => {
@@ -104,15 +110,29 @@ export function FormikForm (){
       label="Email"
       required
     />
-     <FormTextAreaInput
-        id="description"
-        placeholder="Enter description here..."
-        {...formik.getFieldProps("description")}
-        error={formik.errors?.description}
-        disabled={isSubmitting}
-        label="Description"
-        required
-      />
+    <FormTextAreaInput
+      id="description"
+      placeholder="Enter description here..."
+      {...formik.getFieldProps("description")}
+      error={formik.errors?.description}
+      disabled={isSubmitting}
+      label="Description"
+      required
+    />
+    <FormSelect
+      name={field.name}
+      items={options}
+      value={options.find((opt) => opt.value === values.year) || ""}
+      onSelect={(option) => setFieldValue("year", option?.value || "")}
+      placeholder="Choose an option"
+     />
+    <Button
+      color={"primary"}
+      size={"md"}
+      type="submit
+    >
+      Submit
+    </Button>
   </form>
  )
 }
@@ -122,13 +142,14 @@ export function FormikForm (){
 React-hook-form
 
 ```
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import FormInput from "./form/form-input"
 
 //
 export function ReactHookForm (){
    const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -136,25 +157,45 @@ export function ReactHookForm (){
   });
  return(
   <form onSubmit={handleSubmit(()=>{})}>
-      <FormInput
-        id="email"
-        type="email"
-        placeholder="m@example.com"
-        {...register("email")}
-        error={errors.email?.message}
-        disabled={isSubmitting}
-        label="Email"
-        required
-      />
-      <FormTextAreaInput
-        id="description"
-        placeholder="Enter description here..."
-        {...register("description")}
-        error={errors.description?.message}
-        disabled={isSubmitting}
-        label="Description"
-        required
-      />
+    <FormInput
+      id="email"
+      type="email"
+      placeholder="m@example.com"
+      {...register("email")}
+      error={errors.email?.message}
+      disabled={isSubmitting}
+      label="Email"
+      required
+    />
+    <FormTextAreaInput
+      id="description"
+      placeholder="Enter description here..."
+      {...register("description")}
+      error={errors.description?.message}
+      disabled={isSubmitting}
+      label="Description"
+      required
+    />
+    <Controller
+      name="year"
+      control={control}
+      render={({ field }) => (
+        <FormSelect
+          name={field.name}
+          items={options}
+          value={options.find((opt) => opt.value === field.value) || ""}
+          onSelect={(option) => setValue("mySelect", option?.value || "")}
+          placeholder="Choose an option"
+        />
+      )}
+    />
+    <Button
+      color={"primary"}
+      size={"md"}
+      type="submit
+    >
+      Submit
+    </Button>
   </form>
  )
 }
