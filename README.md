@@ -6,10 +6,10 @@ The easiest way to use ui-element is to install it from npm and build it into yo
 
 ```
 yarn add simple_ui_elements
-npm i simple_ui_elements
-pnpm i simple_ui_elements
+npm install simple_ui_elements
+pnpm install simple_ui_elements
 ```
-
+## Getting Started
 ## COMPONENTS
 
 Button
@@ -70,13 +70,32 @@ Select
 ```
 
 ## Features
-
-✅ Easy integration with `react-hook-form` and `formik`
+✅ Pre-built Components – Buttons, Inputs, Selects, Modals, and more
+✅ Tailwind CSS Integration – Fully customizable with utility classes
+✅ Theme Support – Easily update colors, typography, and styles
+✅ Lightweight & Performant – Optimized for fast rendering
+✅ Easy integration with `react-hook-form` and `formik` – Simplifies form handling, 
 ✅ Fully TypeScript supported  
 ✅ Custom validation support  
-✅ Lightweight and performant
 
-FORMIK
+## 🎨 Customization
+Supports Tailwind CSS configuration out of the box.
+To customize colors and styles, update your tailwind.config.js:
+
+```
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: "#6366f1", // Customize primary color
+        secondary: "#ec4899",
+      },
+    },
+  },
+};
+```
+## Usage with Forms
+Using with FORMIK
 
 ```
 import { useFormik } from "formik";
@@ -139,7 +158,7 @@ export function FormikForm (){
 
 ```
 
-React-hook-form
+Using with React-hook-form
 
 ```
 import { useForm, Controller } from "react-hook-form";
@@ -201,3 +220,9 @@ export function ReactHookForm (){
 }
 
 ```
+
+🔗 Links
+📦 NPM Package: [simple_ui_elements](https://www.npmjs.com/package/simple_ui_elements)
+📖 Documentation: [simple_ui_elements](https://github.com/basant-rai/ui_library)
+
+🚀 Start building better UI today!
