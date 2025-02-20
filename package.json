@@ -16,7 +16,12 @@
     "react",
     "ui",
     "tailwind",
-    "components"
+    "components",
+    "formik",
+    "react-hook-form",
+    "style",
+    "frontend",
+    "error"
   ],
   "author": "Basant",
   "license": "ISC",
@@ -37,5 +42,12 @@
     "postcss": "^8.5.2",
     "react-select": "^5.10.0",
     "tailwind-merge": "^3.0.1"
-  }
+  },
+  "files": [
+    "tailwind.config.js",
+    "postcss.config.mjs",
+    "src/styles/global.css",
+    "src/utils/cn.tsx",
+    "scripts/setup-tailwind.js"
+  ]
 }
