@@ -31,10 +31,12 @@ const FormTextAreaInput = ({
   ...props
 }: Props) => {
   return (
-    <label htmlFor={props.name} className={cn(
-      "block text-sm",
-      style?.className
-    )}>
+    <label
+      htmlFor={props.name}
+      className={cn(
+        "block text-sm",
+        style?.className
+      )}>
       {label &&
         <div >
           {label} {required && <Required />}
