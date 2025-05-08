@@ -21,3 +21,5 @@ export { default as FormTextArea } from "./component/form/form-text-area";
 
 // 
 export { default as TimPicker } from "./component/common/time-picker/time-picker";
+export { default as DateField } from "./component/common/date/index";
+

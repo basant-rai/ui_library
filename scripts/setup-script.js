@@ -16,11 +16,11 @@ const packageRoot = path.join(__dirname, '..');
 const userRoot = process.cwd();
 
 const paths = {
-  tailwindConfig: {
-    src: path.join(packageRoot, 'tailwind.config.js'),
-    dest: path.join(userRoot, 'tailwind.config.js'),
-    desc: 'Tailwind config',
-  },
+  // tailwindConfig: {
+  //   src: path.join(packageRoot, 'tailwind.config.js'),
+  //   dest: path.join(userRoot, 'tailwind.config.js'),
+  //   desc: 'Tailwind config',
+  // },
   postcssConfig: {
     src: path.join(packageRoot, 'postcss.config.mjs'),
     dest: path.join(userRoot, 'postcss.config.mjs'),
