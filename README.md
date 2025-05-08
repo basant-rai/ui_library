@@ -8,6 +8,8 @@ The easiest way to use ui-element is to install it from npm and build it into yo
 yarn add simple_ui_elements
 npm install simple_ui_elements
 pnpm install simple_ui_elements
+
+npx simple_ui_elements@latest setup
 ```
 
 ## Getting Started

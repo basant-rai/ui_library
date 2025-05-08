@@ -1,58 +1,102 @@
+#!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const execSync = require('child_process').execSync;
+const { execSync } = require('child_process');
 
-function safeCopy(source, destination, fileDescription) {
-  if (fs.existsSync(source)) {
-    fs.copyFileSync(source, destination);
-    console.log(`✅ Copied ${fileDescription} to your project.`);
-  } else {
-    console.warn(`⚠️ Warning: ${fileDescription} not found in package. Skipping.`);
-  }
+// Enhanced logging with colors
+console.log('\x1b[36m=== simple_ui_elements postinstall script ===\x1b[0m');
+
+// 1. Path resolution with error handling
+let packageRoot;
+try {
+  packageRoot = path.dirname(require.resolve('simple_ui_elements/package.json'));
+  console.log('\x1b[32m✓\x1b[0m Package root:', packageRoot);
+} catch (err) {
+  console.error('\x1b[31m✗\x1b[0m Failed to locate package root:', err);
+  process.exit(1);
 }
 
-// Paths
-const packageRoot = path.join(__dirname, '..');
 const userRoot = process.cwd();
+console.log('\x1b[34m→\x1b[0m User project root:', userRoot);
 
-const paths = {
-  // tailwindConfig: {
-  //   src: path.join(packageRoot, 'tailwind.config.js'),
-  //   dest: path.join(userRoot, 'tailwind.config.js'),
-  //   desc: 'Tailwind config',
-  // },
-  postcssConfig: {
-    src: path.join(packageRoot, 'postcss.config.mjs'),
-    dest: path.join(userRoot, 'postcss.config.mjs'),
-    desc: 'PostCSS config',
-  },
-  globalCss: {
-    src: path.join(packageRoot, 'src', 'styles', 'global.css'),
-    dest: path.join(userRoot, 'src', 'styles', 'global.css'),
-    desc: 'Global CSS',
-  },
-  cnUtil: {
-    src: path.join(packageRoot, 'src', 'utils', 'cn.tsx'),
-    dest: path.join(userRoot, 'src', 'utils', 'cn.tsx'),
-    desc: 'cn.tsx utility',
-  },
+// 2. Enhanced file operations
+const ensureDir = (dir) => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+    console.log(`\x1b[33m!\x1b[0m Created directory: ${dir}`);
+  }
 };
 
-// Ensure user project structure exists
-const userCssDir = path.join(userRoot, 'src', 'styles');
-const userUtilsDir = path.join(userRoot, 'src', 'utils');
+const copyFile = (source, destination, description) => {
+  try {
+    if (!fs.existsSync(source)) {
+      console.warn(`\x1b[33m⚠\x1b[0m ${description} not found at: ${source}`);
+      return false;
+    }
 
-if (!fs.existsSync(userCssDir)) fs.mkdirSync(userCssDir, { recursive: true });
-if (!fs.existsSync(userUtilsDir)) fs.mkdirSync(userUtilsDir, { recursive: true });
+    ensureDir(path.dirname(destination));
+    
+    fs.copyFileSync(source, destination);
+    console.log(`\x1b[32m✓\x1b[0m Copied ${description} to:\n   ${destination}`);
+    return true;
+  } catch (err) {
+    console.error(`\x1b[31m✗\x1b[0m Failed to copy ${description}:`, err);
+    return false;
+  }
+};
 
-// Copy files
-Object.values(paths).forEach(({ src, dest, desc }) => safeCopy(src, dest, desc));
+// 3. File copy configuration
+const filesToCopy = [
+  {
+    src: path.join(packageRoot, 'postcss.config.mjs'),
+    dest: path.join(userRoot, 'postcss.config.mjs'),
+    desc: 'PostCSS config'
+  },
+  {
+    src: path.join(packageRoot, 'dist', 'styles', 'global.css'),
+    dest: path.join(userRoot, 'src', 'styles', 'global.css'),
+    desc: 'Global CSS'
+  },
+  {
+    src: path.join(packageRoot, 'dist', 'cn.js'), // Now looking in root dist directory
+    dest: path.join(userRoot, 'src', 'utils', 'cn.tsx'),
+    desc: 'CN utility'
+  }
+];
 
-// Install dependencies if needed
-try {
-  console.log('Installing TailwindCSS and PostCSS dependencies...');
-  execSync('npm install tailwindcss postcss autoprefixer', { stdio: 'inherit' });
-  console.log('✅ TailwindCSS and PostCSS dependencies installed.');
-} catch (error) {
-  console.error('❌ Error installing dependencies:', error);
+// 4. Execute file copies
+console.log('\x1b[36m\nCopying project files:\x1b[0m');
+filesToCopy.forEach(file => copyFile(file.src, file.dest, file.desc));
+
+// 5. Dependency verification
+console.log('\x1b[36m\nChecking dependencies:\x1b[0m');
+const requiredDeps = ['tailwindcss', 'postcss', 'autoprefixer'];
+const missingDeps = requiredDeps.filter(dep => {
+  try {
+    require.resolve(dep);
+    return false;
+  } catch {
+    return true;
+  }
+});
+
+if (missingDeps.length > 0) {
+  console.warn(`\x1b[33m⚠\x1b[0m Missing dependencies: ${missingDeps.join(', ')}`);
+  console.log('\x1b[36mAttempting to install...\x1b[0m');
+  
+  try {
+    const packageManager = fs.existsSync(path.join(userRoot, 'pnpm-lock.yaml')) ? 'pnpm' : 'npm';
+    execSync(`${packageManager} add ${missingDeps.join(' ')}`, { 
+      stdio: 'inherit',
+      cwd: userRoot
+    });
+    console.log('\x1b[32m✓\x1b[0m Dependencies installed successfully');
+  } catch (err) {
+    console.error('\x1b[31m✗\x1b[0m Failed to install dependencies:', err);
+    console.warn('\x1b[33mPlease install these manually:\x1b[0m', missingDeps.join(' '));
+  }
+} else {
+  console.log('\x1b[32m✓\x1b[0m All dependencies already installed');
 }
+
+console.log('\x1b[36m\n=== Setup complete ===\x1b[0m\n');

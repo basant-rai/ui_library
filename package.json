@@ -1,16 +1,19 @@
 {
   "name": "simple_ui_elements",
-  "version": "1.0.5",
+  "version": "1.0.21",
   "description": "A simple UI components library for React with Tailwind CSS.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "postinstall": "node ./scripts/setup-script.js",
-    "dev": "npm run",
-    "build": "tsup",
+    "postinstall": "node scripts/setup-script.js",
+    "dev": "tsup --watch",
+    "build": "tsup && mkdir -p dist/styles && cp src/styles/global.css dist/styles/ && tsc src/utils/cn.tsx --outDir dist/ --target esnext --module commonjs",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "setup": "./scripts/setup-script.js"
   },
   "keywords": [
     "react",
@@ -37,6 +40,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@types/node": "^22.15.17",
     "autoprefixer": "^10.4.20",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -46,8 +50,8 @@
     "tailwindcss": "^4.0.6"
   },
   "files": [
+    "dist",
     "postcss.config.mjs",
-    "src/styles/global.css",
-    "src/utils/cn.tsx"
+    "scripts"
   ]
 }
