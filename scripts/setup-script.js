@@ -20,23 +20,27 @@ const userRoot = process.cwd();
 console.log('\x1b[34m→\x1b[0m User project root:', userRoot);
 
 // 2. Enhanced file operations
-const ensureDir = (dir) => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-    console.log(`\x1b[33m!\x1b[0m Created directory: ${dir}`);
-  }
+const ensureDir = dir => {
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
 };
 
-const copyFile = (source, destination, description) => {
+const copyFile = async (source, destination, description) => {
   try {
-    if (!fs.existsSync(source)) {
+    if (!existsSync(source)) {
       console.warn(`\x1b[33m⚠\x1b[0m ${description} not found at: ${source}`);
       return false;
     }
 
     ensureDir(path.dirname(destination));
-    
-    fs.copyFileSync(source, destination);
+
+    const stat = fs.lstatSync(source);
+    if (stat.isDirectory()) {
+      // Copy entire directory recursively
+      cpSync(source, destination, { recursive: true });
+    } else {
+      fs.copyFileSync(source, destination);
+    }
+
     console.log(`\x1b[32m✓\x1b[0m Copied ${description} to:\n   ${destination}`);
     return true;
   } catch (err) {
@@ -58,16 +62,22 @@ const filesToCopy = [
     desc: 'Global CSS'
   },
   {
-    src: path.join(packageRoot, 'dist', 'cn.js'), // Now looking in root dist directory
+    src: path.join(packageRoot, 'dist', 'utils', 'cn.js'),
     dest: path.join(userRoot, 'src', 'utils', 'cn.tsx'),
     desc: 'CN utility'
+  },
+  {
+    src: path.join(packageRoot, 'dist', 'components'),
+    dest: path.join(userRoot, 'src', 'components'),
+    desc: 'Components'
   }
 ];
 
 // 4. Execute file copies
 console.log('\x1b[36m\nCopying project files:\x1b[0m');
-filesToCopy.forEach(file => copyFile(file.src, file.dest, file.desc));
-
+for (const file of filesToCopy) {
+  await copyFile(file.src, file.dest, file.desc);
+}
 // 5. Dependency verification
 console.log('\x1b[36m\nChecking dependencies:\x1b[0m');
 const requiredDeps = ['tailwindcss', 'postcss', 'autoprefixer'];
@@ -83,10 +93,10 @@ const missingDeps = requiredDeps.filter(dep => {
 if (missingDeps.length > 0) {
   console.warn(`\x1b[33m⚠\x1b[0m Missing dependencies: ${missingDeps.join(', ')}`);
   console.log('\x1b[36mAttempting to install...\x1b[0m');
-  
+
   try {
     const packageManager = fs.existsSync(path.join(userRoot, 'pnpm-lock.yaml')) ? 'pnpm' : 'npm';
-    execSync(`${packageManager} add ${missingDeps.join(' ')}`, { 
+    execSync(`${packageManager} add ${missingDeps.join(' ')}`, {
       stdio: 'inherit',
       cwd: userRoot
     });
