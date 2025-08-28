@@ -22,6 +22,6 @@ export default defineConfig({
 
     await cp('src/styles/global.css', 'dist/styles/global.css')
     await cp('src/component', 'dist/components', { recursive: true })
-    await cp('src/utils/cn.tsx', 'dist/utils/cn.tsx')
+    await cp('src/utils', 'dist/utils', { recursive: true })
   }
 });

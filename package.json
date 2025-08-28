@@ -1,6 +1,7 @@
 {
   "name": "simple_ui_elements",
-  "version": "1.0.22",
+  "private": true,
+  "version": "1.0.23",
   "description": "A simple UI components library for React with Tailwind CSS.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -26,8 +27,12 @@
     "frontend",
     "error"
   ],
-  "author": "Basant",
-  "license": "ISC",
+  "author": {
+    "name": "Basant",
+    "email": "bassuntrai@gmail.com",
+    "url": "https://basantrai.com.np/"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

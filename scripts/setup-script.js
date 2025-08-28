@@ -3,10 +3,12 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-// Enhanced logging with colors
+// Extract fs functions
+const { existsSync, mkdirSync, copyFileSync, readdirSync, lstatSync } = fs;
+
+// Enhanced logging
 console.log('\x1b[36m=== simple_ui_elements postinstall script ===\x1b[0m');
 
-// 1. Path resolution with error handling
 let packageRoot;
 try {
   packageRoot = path.dirname(require.resolve('simple_ui_elements/package.json'));
@@ -19,28 +21,34 @@ try {
 const userRoot = process.cwd();
 console.log('\x1b[34m→\x1b[0m User project root:', userRoot);
 
-// 2. Enhanced file operations
+// Ensure directory exists
 const ensureDir = dir => {
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
 };
 
+// Recursive copy function
+const copyRecursive = (src, dest) => {
+  const stats = lstatSync(src);
+  if (stats.isDirectory()) {
+    ensureDir(dest);
+    const entries = readdirSync(src);
+    for (const entry of entries) {
+      copyRecursive(path.join(src, entry), path.join(dest, entry));
+    }
+  } else {
+    ensureDir(path.dirname(dest));
+    copyFileSync(src, dest);
+  }
+};
+
+// Copy file/directory wrapper with logging
 const copyFile = async (source, destination, description) => {
   try {
     if (!existsSync(source)) {
       console.warn(`\x1b[33m⚠\x1b[0m ${description} not found at: ${source}`);
       return false;
     }
-
-    ensureDir(path.dirname(destination));
-
-    const stat = fs.lstatSync(source);
-    if (stat.isDirectory()) {
-      // Copy entire directory recursively
-      cpSync(source, destination, { recursive: true });
-    } else {
-      fs.copyFileSync(source, destination);
-    }
-
+    copyRecursive(source, destination);
     console.log(`\x1b[32m✓\x1b[0m Copied ${description} to:\n   ${destination}`);
     return true;
   } catch (err) {
@@ -49,7 +57,7 @@ const copyFile = async (source, destination, description) => {
   }
 };
 
-// 3. File copy configuration
+// Files and folders to copy
 const filesToCopy = [
   {
     src: path.join(packageRoot, 'postcss.config.mjs'),
@@ -62,8 +70,8 @@ const filesToCopy = [
     desc: 'Global CSS'
   },
   {
-    src: path.join(packageRoot, 'dist', 'utils', 'cn.js'),
-    dest: path.join(userRoot, 'src', 'utils', 'cn.tsx'),
+    src: path.join(packageRoot, 'dist', 'utils'),
+    dest: path.join(userRoot, 'src', 'utils'),
     desc: 'CN utility'
   },
   {
@@ -73,40 +81,42 @@ const filesToCopy = [
   }
 ];
 
-// 4. Execute file copies
-console.log('\x1b[36m\nCopying project files:\x1b[0m');
-for (const file of filesToCopy) {
-  await copyFile(file.src, file.dest, file.desc);
-}
-// 5. Dependency verification
-console.log('\x1b[36m\nChecking dependencies:\x1b[0m');
-const requiredDeps = ['tailwindcss', 'postcss', 'autoprefixer'];
-const missingDeps = requiredDeps.filter(dep => {
-  try {
-    require.resolve(dep);
-    return false;
-  } catch {
-    return true;
+// Main async function
+(async () => {
+  console.log('\x1b[36m\nCopying project files:\x1b[0m');
+  for (const file of filesToCopy) {
+    await copyFile(file.src, file.dest, file.desc);
   }
-});
 
-if (missingDeps.length > 0) {
-  console.warn(`\x1b[33m⚠\x1b[0m Missing dependencies: ${missingDeps.join(', ')}`);
-  console.log('\x1b[36mAttempting to install...\x1b[0m');
+  // Check dependencies
+  console.log('\x1b[36m\nChecking dependencies:\x1b[0m');
+  const requiredDeps = ['tailwindcss', 'postcss', 'autoprefixer'];
+  const missingDeps = requiredDeps.filter(dep => {
+    try {
+      require.resolve(dep);
+      return false;
+    } catch {
+      return true;
+    }
+  });
 
-  try {
-    const packageManager = fs.existsSync(path.join(userRoot, 'pnpm-lock.yaml')) ? 'pnpm' : 'npm';
-    execSync(`${packageManager} add ${missingDeps.join(' ')}`, {
-      stdio: 'inherit',
-      cwd: userRoot
-    });
-    console.log('\x1b[32m✓\x1b[0m Dependencies installed successfully');
-  } catch (err) {
-    console.error('\x1b[31m✗\x1b[0m Failed to install dependencies:', err);
-    console.warn('\x1b[33mPlease install these manually:\x1b[0m', missingDeps.join(' '));
+  if (missingDeps.length > 0) {
+    console.warn(`\x1b[33m⚠\x1b[0m Missing dependencies: ${missingDeps.join(', ')}`);
+    console.log('\x1b[36mAttempting to install...\x1b[0m');
+    try {
+      const packageManager = existsSync(path.join(userRoot, 'pnpm-lock.yaml')) ? 'pnpm' : 'npm';
+      execSync(`${packageManager} add ${missingDeps.join(' ')}`, {
+        stdio: 'inherit',
+        cwd: userRoot
+      });
+      console.log('\x1b[32m✓\x1b[0m Dependencies installed successfully');
+    } catch (err) {
+      console.error('\x1b[31m✗\x1b[0m Failed to install dependencies:', err);
+      console.warn('\x1b[33mPlease install these manually:\x1b[0m', missingDeps.join(' '));
+    }
+  } else {
+    console.log('\x1b[32m✓\x1b[0m All dependencies already installed');
   }
-} else {
-  console.log('\x1b[32m✓\x1b[0m All dependencies already installed');
-}
 
-console.log('\x1b[36m\n=== Setup complete ===\x1b[0m\n');
+  console.log('\x1b[36m\n=== Setup complete ===\x1b[0m\n');
+})();
